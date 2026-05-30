@@ -1,0 +1,44 @@
+name: Environment Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_env:
+        description: 'Target Environment'
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+        default: 'staging'
+      deploy_ref:
+        description: 'Branch or Git Ref'
+        required: true
+        type: string
+        default: 'main'
+      force_deploy:
+        description: 'Force deployment without checks'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  pre-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pre-deployment checks
+        run: |
+          echo "Preparing deployment to ${{ github.event.inputs.target_env }} using ref ${{ github.event.inputs.deploy_ref }}..."
+          echo "Force deploy status: ${{ github.event.inputs.force_deploy }}"
+          sleep 4
+
+  deploy:
+    needs: pre-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Deploy Script
+        run: |
+          echo "Deploying..."
+          sleep 10
+          echo "Deployment to ${{ github.event.inputs.target_env }} completed successfully!"
