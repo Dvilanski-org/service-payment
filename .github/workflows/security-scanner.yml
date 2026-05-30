@@ -1,0 +1,38 @@
+name: Vulnerability Scanner
+
+on:
+  workflow_dispatch:
+    inputs:
+      scan_depth:
+        description: 'Scan Depth'
+        required: true
+        type: choice
+        options:
+          - quick
+          - standard
+          - deep
+        default: 'standard'
+      fail_on_error:
+        description: 'Fail workflow on high vulnerabilities'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  static-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Analysis
+        run: |
+          echo "Performing static analysis (depth: ${{ github.event.inputs.scan_depth }})..."
+          sleep 6
+
+  dependency-scan:
+    needs: static-analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scan dependencies
+        run: |
+          echo "Scanning dependencies..."
+          sleep 8
+          echo "Analysis complete. Fail-on-error behavior configured as: ${{ github.event.inputs.fail_on_error }}"
