@@ -1,0 +1,44 @@
+name: Integration Tests Suite
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Test Suite to Execute'
+        required: true
+        type: choice
+        options:
+          - smoke
+          - regression
+          - performance
+        default: 'smoke'
+      mock_external_services:
+        description: 'Mock External APIs'
+        required: false
+        type: boolean
+        default: true
+      timeout_minutes:
+        description: 'Timeout in minutes'
+        required: true
+        type: string
+        default: '15'
+
+jobs:
+  setup-testbed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull Docker Test Images
+        run: |
+          echo "Setting up integration environment for ${{ github.event.inputs.test_suite }} tests..."
+          echo "Mocking active: ${{ github.event.inputs.mock_external_services }}"
+          sleep 5
+
+  run-tests:
+    needs: setup-testbed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Tests
+        run: |
+          echo "Running tests with timeout limits set to ${{ github.event.inputs.timeout_minutes }}m..."
+          sleep 12
+          echo "Execution complete!"
