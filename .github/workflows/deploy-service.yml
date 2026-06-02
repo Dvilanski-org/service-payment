@@ -13,14 +13,9 @@ on:
         type: string
         default: 'v1.0.0'
       deploy-env:
-        description: 'Deployment destination'
+        description: 'Deployment destination (e.g. staging-us, production-us)'
         required: true
-        type: choice
-        options:
-          - staging-us
-          - staging-eu
-          - production-us
-          - production-eu
+        type: string
         default: 'staging-us'
       force-deploy:
         description: 'Skip pre-deployment safety checks'
@@ -40,14 +35,9 @@ on:
         type: string
         default: 'v1.0.0'
       deploy-env:
-        description: 'Deployment destination'
+        description: 'Deployment destination (e.g. staging-us, production-us)'
         required: true
-        type: choice
-        options:
-          - staging-us
-          - staging-eu
-          - production-us
-          - production-eu
+        type: string
         default: 'staging-us'
       force-deploy:
         description: 'Skip pre-deployment safety checks'
