@@ -1,0 +1,64 @@
+name: Notify Status Reusable Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      recipient:
+        description: 'Email or Slack channel name'
+        required: true
+        type: string
+        default: '#dev-alerts'
+      status-message:
+        description: 'Main notification body message'
+        required: true
+        type: string
+        default: 'Build status report'
+      alert-level:
+        description: 'Alert Severity Level'
+        required: true
+        type: choice
+        options:
+          - info
+          - warning
+          - critical
+        default: 'info'
+      send-slack:
+        description: 'Send message to Slack'
+        required: false
+        type: boolean
+        default: true
+  workflow_call:
+    inputs:
+      recipient:
+        description: 'Email or Slack channel name'
+        required: true
+        type: string
+        default: '#dev-alerts'
+      status-message:
+        description: 'Main notification body message'
+        required: true
+        type: string
+        default: 'Build status report'
+      alert-level:
+        description: 'Alert Severity Level'
+        required: true
+        type: choice
+        options:
+          - info
+          - warning
+          - critical
+        default: 'info'
+      send-slack:
+        description: 'Send message to Slack'
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sending Notification
+        run: |
+          echo "Sending status alert level [${{ inputs.alert-level }}] to ${{ inputs.recipient }}..."
+          echo "Message: ${{ inputs.status-message }}"
+          echo "Slack enabled: ${{ inputs.send-slack }}"
