@@ -13,13 +13,9 @@ on:
         type: string
         default: 'Build status report'
       alert-level:
-        description: 'Alert Severity Level'
+        description: 'Alert Severity Level (e.g. info, warning, critical)'
         required: true
-        type: choice
-        options:
-          - info
-          - warning
-          - critical
+        type: string
         default: 'info'
       send-slack:
         description: 'Send message to Slack'
@@ -39,13 +35,9 @@ on:
         type: string
         default: 'Build status report'
       alert-level:
-        description: 'Alert Severity Level'
+        description: 'Alert Severity Level (e.g. info, warning, critical)'
         required: true
-        type: choice
-        options:
-          - info
-          - warning
-          - critical
+        type: string
         default: 'info'
       send-slack:
         description: 'Send message to Slack'
