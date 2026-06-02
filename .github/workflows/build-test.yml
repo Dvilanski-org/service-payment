@@ -1,0 +1,56 @@
+name: Build and Test Reusable Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      build-config:
+        description: 'Build Configuration (Release/Debug)'
+        required: true
+        type: string
+        default: 'Release'
+      run-tests:
+        description: 'Run unit and integration tests'
+        required: true
+        type: boolean
+        default: true
+      environment:
+        description: 'Target Environment'
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+        default: 'dev'
+  workflow_call:
+    inputs:
+      build-config:
+        description: 'Build Configuration (Release/Debug)'
+        required: true
+        type: string
+        default: 'Release'
+      run-tests:
+        description: 'Run unit and integration tests'
+        required: true
+        type: boolean
+        default: true
+      environment:
+        description: 'Target Environment'
+        required: true
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+        default: 'dev'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Print Inputs
+        run: |
+          echo "Build configuration: ${{ inputs.build-config }}"
+          echo "Run tests: ${{ inputs.run-tests }}"
+          echo "Environment: ${{ inputs.environment }}"
