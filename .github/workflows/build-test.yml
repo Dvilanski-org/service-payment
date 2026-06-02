@@ -13,13 +13,9 @@ on:
         type: boolean
         default: true
       environment:
-        description: 'Target Environment'
+        description: 'Target Environment (e.g. dev, staging, prod)'
         required: true
-        type: choice
-        options:
-          - dev
-          - staging
-          - prod
+        type: string
         default: 'dev'
   workflow_call:
     inputs:
@@ -34,13 +30,9 @@ on:
         type: boolean
         default: true
       environment:
-        description: 'Target Environment'
+        description: 'Target Environment (e.g. dev, staging, prod)'
         required: true
-        type: choice
-        options:
-          - dev
-          - staging
-          - prod
+        type: string
         default: 'dev'
 
 jobs:
