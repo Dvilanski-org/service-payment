@@ -1,0 +1,64 @@
+name: Deploy Service Reusable Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      service-name:
+        description: 'Name of the microservice to deploy'
+        required: true
+        type: string
+        default: 'api-gateway'
+      version:
+        description: 'Semantic version tag'
+        required: true
+        type: string
+        default: 'v1.0.0'
+      deploy-env:
+        description: 'Deployment destination'
+        required: true
+        type: choice
+        options:
+          - staging-us
+          - staging-eu
+          - production-us
+          - production-eu
+        default: 'staging-us'
+      force-deploy:
+        description: 'Skip pre-deployment safety checks'
+        required: false
+        type: boolean
+        default: false
+  workflow_call:
+    inputs:
+      service-name:
+        description: 'Name of the microservice to deploy'
+        required: true
+        type: string
+        default: 'api-gateway'
+      version:
+        description: 'Semantic version tag'
+        required: true
+        type: string
+        default: 'v1.0.0'
+      deploy-env:
+        description: 'Deployment destination'
+        required: true
+        type: choice
+        options:
+          - staging-us
+          - staging-eu
+          - production-us
+          - production-eu
+        default: 'staging-us'
+      force-deploy:
+        description: 'Skip pre-deployment safety checks'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploying Service
+        run: |
+          echo "Deploying ${{ inputs.service-name }} version ${{ inputs.version }} to ${{ inputs.deploy-env }} (Force: ${{ inputs.force-deploy }})"
