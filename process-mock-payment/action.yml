@@ -1,0 +1,7 @@
+name: "process-mock-payment"
+description: "Process Mock Payment Composite Action"
+runs:
+  using: "composite"
+  steps:
+    - run: echo "Executing process-mock-payment"
+      shell: bash
